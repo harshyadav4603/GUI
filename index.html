@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Geomechanics Calculator</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Geomechanics Elastic Parameter Calculator</h1>
+  </header>
+  <main>
+    <section class="controls">
+      <label class="file-label">Upload CSV or Excel (XLSX)
+        <input id="file-input" type="file" accept=".csv,.xlsx,.xls" />
+      </label>
+      <div class="options">
+        <label>Depth column name: <input id="col-depth" placeholder="Depth (m)"></label>
+        <label>Density column name: <input id="col-density" placeholder="Density (kg/m³)"></label>
+        <label>Vp column name: <input id="col-vp" placeholder="Vp (m/s)"></label>
+        <label>Vs column name: <input id="col-vs" placeholder="Vs (m/s)"></label>
+      </div>
+      <div class="actions">
+        <button id="validate-btn">Validate & Compute</button>
+        <button id="export-csv-btn">Export CSV</button>
+        <button id="export-xlsx-btn">Export XLSX</button>
+        <button id="toggle-data-btn">Show Data</button>
+        <label><input id="scatter-full" type="checkbox"> Auto generate full scatter-matrix</label>
+        <div class="scatter-selects">
+          <label>X: <select id="scatter-x"></select></label>
+          <label>Y: <select id="scatter-y"></select></label>
+          <button id="plot-scatter-btn">Plot Selected Pair</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="results">
+      <div id="table-container"></div>
+
+      <div class="plots">
+        <div id="profiles" class="plot"></div>
+        <div id="scatter" class="plot"></div>
+        <div id="welllogs" class="plot"></div>
+      </div>
+      <div id="table-container" style="display:none;"></div>
+      <div class="welllog-controls">
+        <label>Well-log tracks: <select id="welllog-params" multiple size="6"></select></label>
+        <label>Scale: <select id="welllog-scale"><option value="linear">Linear</option><option value="log">Log</option></select></label>
+        <label><input id="welllog-grid" type="checkbox" checked> Show gridlines</label>
+        <label>Track width fraction: <input id="welllog-width" type="number" min="0.05" max="0.9" step="0.01" value="0.2"></label>
+        <button id="plot-welllogs-btn">Plot Well Logs</button>
+        <button id="download-welllogs-btn">Download Welllogs PNG</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Assumptions: isotropic, linear elastic medium. See comments in script.js.</p>
+  </footer>
+
+  <script src="script.js" type="module"></script>
+</body>
+</html>
